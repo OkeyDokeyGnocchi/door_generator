@@ -4,12 +4,12 @@ import random
 from datetime import date, timedelta
 
 # Generate a new set of 52
-def generate_new():
+def main():
     while True:
         try:
             year = int(input("What is the starting year?\n"))
             month = int(input("What is the starting month?\n"))
-            day = int(input("What it the starting day of the month is it?\n"))
+            day = int(input("What is the starting day?\n"))
             break
         except ValueError:
             print("Please enter only numbers.\n")
@@ -38,8 +38,15 @@ def generate_new():
         writer = csv.writer(f)
         writer.writerow(header)
 
+    while True:
+        try:
+            num_codes = int(input("How many codes would you like?\n"))
+            break
+        except ValueError:
+            print("Numbers only, please.\n")
+
     # Make the 52
-    for i in range(52):
+    for i in range(num_codes):
         code = random.randint(10000, 99999)
 
         # Convert date to AccessNsite format
@@ -64,9 +71,6 @@ def generate_new():
         start_date += timedelta(days=7)
         first_name += 1
 
-def update_existing():
-    #TODO
-
 
 if __name__ == '__main__':
     while True:
@@ -75,12 +79,15 @@ if __name__ == '__main__':
         user_mode = input()
         if user_mode == '1':
             print("TODO Update existing.\n")
+
+            print("To update records, import into AccessNsite and load"
+                " the python_update configuration.")
             break
         elif user_mode == '2':
             print("Running Generate New.\n")
-            generate_new()
+            main()
             print("To import new records, import into AccessNsite and load"
-                " the python configuration.")
+                " the python_gen configuration.")
             print("Finished, quitting.")
             exit()
         elif user_mode == '3':
