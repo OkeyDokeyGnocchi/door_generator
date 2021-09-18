@@ -74,7 +74,7 @@ def main():
 
 if __name__ == '__main__':
     while True:
-        print('Would you like (1)Update Records, (2)Create New Records, or '
+        print('Would you like (1)Remote Link, (2)AccessNsite, or '
               '(3)Exit? [1/2/3]')
         user_mode = input()
         if user_mode == '1':
@@ -94,5 +94,5 @@ if __name__ == '__main__':
             print('Exiting.\n')
             exit()
         else:
-            print('Please select either (1)easy, (2)advanced, or '
-                  '(3)query mode.\n')
+            print('Please select either (1)Remote Link, (2)AccessNsite, or '
+                  '(3)Exit.\n')
