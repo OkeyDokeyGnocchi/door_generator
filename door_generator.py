@@ -4,7 +4,7 @@ import random
 from datetime import date, timedelta
 
 # Generate a new set of 52
-def main():
+def access_nsite():
     while True:
         try:
             year = int(input("What is the starting year?\n"))
@@ -25,7 +25,8 @@ def main():
         except ValueError:
             print("Numbers only, please.\n")
 
-    access_level = input("Please enter the access level that you want added.\n")
+    access_level = input("Please enter the access level that you want added. "
+                            "(Can be left blank if unsure)\n")
 
     # Set the headers
     header = [
@@ -45,9 +46,45 @@ def main():
         except ValueError:
             print("Numbers only, please.\n")
 
+    while True:
+        print("Would you like to Create Records[1] or Update Existing[2]?")
+        access_mode = input()
+
+        if access_mode not in ['1', '2']:
+            print("Please select 1 or 2.\n")
+        else:
+            if access_mode == '2':
+                while True:
+                    print("\nPlease provide the name of the csv file with personnel "
+                            "IDs to update (needs to be in the same folder as this"
+                            " program and should have a single column with no header")
+                    existing_csv = input()
+                    if '.csv' not in existing_csv:
+                        existing_csv += '.csv'
+
+                    try:
+                        with open(existing_csv, 'r') as f:
+                            reader = csv.reader(f, delimiter=',')
+                            personnel_id_list = []
+
+                            for row in f:
+                                personnel_id_list.append(row)
+                        break
+                    except FileNotFoundError:
+                        print("File could not be found, please double check "
+                            "the file name and location.")
+
+            break
+
+
     # Make the 52
     for i in range(num_codes):
         code = random.randint(10000, 99999)
+
+        if access_mode == '1':
+            personnel_id = code
+        else:
+            personnel_id = personnel_id_list[i]
 
         # Convert date to AccessNsite format
         effective_date = start_date.strftime("%m/%d/%Y")
@@ -59,7 +96,7 @@ def main():
         expires_date_formatted = expires_date.strftime("%m/%d/%Y")
 
         data = [
-            code, code, code,
+            code, code, personnel_id,
             last_name, first_name, effective_date,
             expires_date_formatted, access_level
             ]
@@ -71,6 +108,13 @@ def main():
         start_date += timedelta(days=7)
         first_name += 1
 
+    if access_mode == '1':
+        print("\nTo import new records, import into AccessNsite and load"
+            " the python_generate configuration.")
+    elif access_mode == '2':
+        print("\nTo update records, import into AccessNsite and load"
+            " the python_update configuration.")
+
 
 if __name__ == '__main__':
     while True:
@@ -78,17 +122,12 @@ if __name__ == '__main__':
               '(3)Exit? [1/2/3]')
         user_mode = input()
         if user_mode == '1':
-            print("TODO Update existing.\n")
-
-            print("To update records, import into AccessNsite and load"
-                " the python_update configuration.")
+            print("TODO Remote Link.\n")
             break
         elif user_mode == '2':
-            print("Running Generate New.\n")
-            main()
-            print("To import new records, import into AccessNsite and load"
-                " the python_gen configuration.")
-            print("Finished, quitting.")
+            print("Running AccessNsite.\n")
+            access_nsite()
+            print("\nFinished, quitting.")
             exit()
         elif user_mode == '3':
             print('Exiting.\n')
