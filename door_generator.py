@@ -77,7 +77,7 @@ def access_nsite():
             break
 
 
-    # Make the 52
+    # Make the CSV
     for i in range(num_codes):
         code = random.randint(10000, 99999)
 
@@ -115,6 +115,9 @@ def access_nsite():
         print("\nTo update records, import into AccessNsite and load"
             " the python_update configuration.")
 
+def remote_link():
+    print("TODO Remote Link.\n")
+
 
 if __name__ == '__main__':
     while True:
@@ -122,8 +125,10 @@ if __name__ == '__main__':
               '(3)Exit? [1/2/3]')
         user_mode = input()
         if user_mode == '1':
-            print("TODO Remote Link.\n")
-            break
+            print("Running Remote Link.\n")
+            remote_link()
+            print("\nFinished, quitting.")
+            exit()
         elif user_mode == '2':
             print("Running AccessNsite.\n")
             access_nsite()
