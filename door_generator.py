@@ -1,6 +1,7 @@
 # Generate 52 weeks worth of codes for ATL and Bonderson
 import csv
 import random
+import sys
 from datetime import date, timedelta
 
 # Generate a new set of 52
@@ -173,9 +174,9 @@ if __name__ == '__main__':
             print("\n####Running AccessNsite####\n")
             access_nsite()
             print("\nFinished, quitting.")
-            exit()
+            sys.exit()
         elif user_mode == '2':
             print('Exiting.\n')
-            exit()
+            sys.exit()
         else:
             print('Please select either (1)Remote Link or (2)Exit.\n')
