@@ -113,7 +113,7 @@ def access_nsite():
             card_number = code
         else:
             personnel_id = personnel_id_list[i]
-            code = personnel_id
+            card_number = personnel_id
 
         # Convert date to AccessNsite format
         effective_date = start_date.strftime("%m/%d/%Y")
