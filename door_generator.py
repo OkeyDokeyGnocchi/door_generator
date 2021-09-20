@@ -151,7 +151,9 @@ def access_nsite():
 
     while True:
         try:
-            remote_user_start = int(input("What is the starting USER #?\n"))
+            print("What is the starting USER Number?")
+            print("**To update the 52 weeks from 2021, select 16**")
+            remote_user_start = int(input())
             break
         except ValueError:
             print("Numbers only, please.\n")
@@ -174,8 +176,10 @@ def access_nsite():
     for i in range(num_codes):
         code = codes[i]
 
-        with open(remote_output, 'a') as f:
-            f.write(f"{remote_user_start}      {remote_last_name} {remote_first_name}  {code}   {remote_profile}\n")
+        with open(remote_output, 'a', newline='') as f:
+            line = f"{remote_user_start}\t{remote_last_name} {remote_first_name}\t{code}\t{remote_profile}\r\n"
+            #line_encoded = line.encode('ascii')
+            f.write(line)
 
         remote_first_name += 1
         remote_user_start += 1
