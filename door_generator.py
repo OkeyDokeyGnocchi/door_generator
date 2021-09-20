@@ -49,7 +49,7 @@ def access_nsite():
     access_level = input("\nPlease enter the access level that you want added. "
                             "(Can be left blank if unsure)\n"
                             "**CENG Bonderson Events is "
-                            "'+CENG Event Spaces (Bondo-Lobby,104,107,203)**'\n")
+                            "'+CENG Event Spaces (Bondo-Lobby,104,107,203)'**\n")
 
     # Set the headers
     header = [
@@ -135,12 +135,8 @@ def access_nsite():
         start_date += timedelta(days=7)
         first_name += 1
 
-    if access_mode == '1':
-        print("\n**To import new records, import into AccessNsite and load"
-            " the python_generate configuration**")
-    elif access_mode == '2':
-        print("\n**To update records, import into AccessNsite and load"
-            " the python_update configuration**")
+    print("\n**To import/update records, import the csv into AccessNsite and load"
+        " the C:\Program Files\AccessNsite\CENG_import_properties\python_gen_import configuration**")
 
 
     # Remote Link
