@@ -110,8 +110,10 @@ def access_nsite():
 
         if access_mode == '1':
             personnel_id = code
+            card_number = code
         else:
             personnel_id = personnel_id_list[i]
+            code = personnel_id
 
         # Convert date to AccessNsite format
         effective_date = start_date.strftime("%m/%d/%Y")
@@ -123,7 +125,7 @@ def access_nsite():
         expires_date_formatted = expires_date.strftime("%m/%d/%Y")
 
         data = [
-            code, code, personnel_id,
+            card_number, code, personnel_id,
             last_name, first_name, effective_date,
             expires_date_formatted, access_level
             ]
