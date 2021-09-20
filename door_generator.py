@@ -1,11 +1,21 @@
 # Generate 52 weeks worth of codes for ATL and Bonderson
 import csv
+import os
 import random
 import sys
 from datetime import date, timedelta
 
 # Generate a new set of 52
 def access_nsite():
+    # Check for output directory, create if needed
+    output_directory = os.getcwd() + "/Output"
+    check_output_exists = os.path.exists(output_directory)
+
+    if not check_output_exists:
+        os.makedirs(output_directory)
+
+    access_output = output_directory + "/AccessNsiteCodes" + "_" + str(date.today()) + ".csv"
+
     codes = []
     while True:
         try:
@@ -39,7 +49,8 @@ def access_nsite():
         "Expires", "Access Level"
         ]
 
-    with open("AccessNsiteCodes.csv", 'w', encoding='UTF-8', newline='') as f:
+
+    with open(access_output, 'w', encoding='UTF-8', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(header)
 
@@ -108,7 +119,7 @@ def access_nsite():
             expires_date_formatted, access_level
             ]
 
-        with open("AccessNsiteCodes.csv", 'a', encoding='UTF-8', newline='') as f:
+        with open(access_output, 'a', encoding='UTF-8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(data)
 
@@ -127,6 +138,8 @@ def access_nsite():
     print("\n####Running Remote Link####\n")
     print("Please enter the starting USER # for this run\n"
             "***Make sure that there are enough open numbers in a row***\n")
+
+    remote_output = output_directory + "/RemoteLinkCodes" + "_" + str(date.today()) + ".txt"
 
     while True:
         try:
@@ -153,14 +166,14 @@ def access_nsite():
     for i in range(num_codes):
         code = codes[i]
 
-        with open("Remote_Link_Codes.txt", 'a') as f:
+        with open(remote_output, 'a') as f:
             f.write(f"{remote_user_start}      {remote_last_name} {remote_first_name}  {code}   {remote_profile}\n")
 
         remote_first_name += 1
         remote_user_start += 1
 
-    print("\nTo import new records, go into User Codes in Remote Link and "
-        " select Batch>File Name>Import.")
+    print("\n**To import new records, go into User Codes in Remote Link and "
+        " select Batch>File Name>Import**")
 
 
 
