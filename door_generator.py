@@ -39,7 +39,7 @@ def access_nsite():
         "Expires", "Access Level"
         ]
 
-    with open("codes2021.csv", 'w', encoding='UTF-8', newline='') as f:
+    with open("AccessNsiteCodes.csv", 'w', encoding='UTF-8', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(header)
 
@@ -108,7 +108,7 @@ def access_nsite():
             expires_date_formatted, access_level
             ]
 
-        with open("codes2021.csv", 'a', encoding='UTF-8', newline='') as f:
+        with open("AccessNsiteCodes.csv", 'a', encoding='UTF-8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(data)
 
@@ -153,7 +153,7 @@ def access_nsite():
     for i in range(num_codes):
         code = codes[i]
 
-        with open("remote_link_import.txt", 'a') as f:
+        with open("Remote_Link_Codes.txt", 'a') as f:
             f.write(f"{remote_user_start}      {remote_last_name} {remote_first_name}  {code}   {remote_profile}\n")
 
         remote_first_name += 1
@@ -179,4 +179,4 @@ if __name__ == '__main__':
             print('Exiting.\n')
             sys.exit()
         else:
-            print('Please select either (1)Remote Link or (2)Exit.\n')
+            print('Please select either (1)Create codes/files or (2)Exit.\n')
