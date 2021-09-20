@@ -25,8 +25,6 @@ def access_nsite():
     if not check_output_exists:
         os.makedirs(output_directory)
 
-    access_output = output_directory + "/AccessNsiteCodes" + "_" + str(date.today()) + ".csv"
-
     codes = []
     while True:
         try:
@@ -150,7 +148,6 @@ def access_nsite():
     print("Please enter the starting USER # for this run\n"
             "***Make sure that there are enough open numbers in a row***\n")
 
-    remote_output = output_directory + "/RemoteLinkCodes" + "_" + str(date.today()) + ".txt"
 
     while True:
         try:
@@ -197,7 +194,8 @@ if __name__ == '__main__':
         if user_mode == '1':
             print("\n####Running AccessNsite####\n")
             access_nsite()
-            print("\nFinished, quitting.")
+            print("\n**Files are located in the Output folder**\n")
+            input("\nFinished, press any key to exit.")
             sys.exit()
         elif user_mode == '2':
             print('Exiting.\n')
