@@ -1,5 +1,6 @@
 # Generate 52 weeks worth of codes for ATL and Bonderson
 import csv
+import platform
 import os
 import random
 import sys
@@ -8,7 +9,17 @@ from datetime import date, timedelta
 # Generate a new set of 52
 def access_nsite():
     # Check for output directory, create if needed
-    output_directory = os.getcwd() + "/Output"
+    current_platform = platform.system()
+
+    if current_platform == 'Windows':
+        output_directory = os.getcwd() + "\Output"
+        access_output = output_directory + "\AccessNsiteCodes" + "_" + str(date.today()) + ".csv"
+        remote_output = output_directory + "\RemoteLinkCodes" + "_" + str(date.today()) + ".txt"
+    else:
+        output_directory = os.getcwd() + "/Output"
+        access_output = output_directory + "/AccessNsiteCodes" + "_" + str(date.today()) + ".csv"
+        remote_output = output_directory + "/RemoteLinkCodes" + "_" + str(date.today()) + ".txt"
+
     check_output_exists = os.path.exists(output_directory)
 
     if not check_output_exists:
