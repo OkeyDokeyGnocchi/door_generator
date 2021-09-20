@@ -5,10 +5,11 @@ from datetime import date, timedelta
 
 # Generate a new set of 52
 def access_nsite():
+    codes = []
     while True:
         try:
             year = int(input("What is the starting year?\n"))
-            month = int(input("What is the starting month?\n"))
+            month = int(input("What is the starting month? (ex: 09)\n"))
             day = int(input("What is the starting day?\n"))
             break
         except ValueError:
@@ -16,17 +17,19 @@ def access_nsite():
 
     start_date = date(year, month, day)
 
-    last_name = input("What is the last name you would like to use? (ex: week)\n")
+    last_name = input("What is the 'last name' you would like to use? (ex: week)\n")
 
     while True:
         try:
-            first_name = int(input("What is the starting number for first name?\n"))
+            first_name = int(input("What is the starting number for 'first name'?\n"))
             break
         except ValueError:
             print("Numbers only, please.\n")
 
-    access_level = input("Please enter the access level that you want added. "
-                            "(Can be left blank if unsure)\n")
+    access_level = input("\nPlease enter the access level that you want added. "
+                            "(Can be left blank if unsure)\n"
+                            "**CENG Bonderson Events is "
+                            "'+CENG Event Spaces (Bondo-Lobby,104,107,203)**'\n")
 
     # Set the headers
     header = [
@@ -57,7 +60,7 @@ def access_nsite():
                 while True:
                     print("\nPlease provide the name of the csv file with personnel "
                             "IDs to update (needs to be in the same folder as this"
-                            " program and should have a single column with no header")
+                            " program and should have a single column with no header\n")
                     existing_csv = input()
                     if '.csv' not in existing_csv:
                         existing_csv += '.csv'
@@ -77,9 +80,12 @@ def access_nsite():
             break
 
 
-    # Make the CSV
+    # Make the CSV for AccessNsite
+    print("\n####Creating AccessNsite csv file####\n")
+
     for i in range(num_codes):
         code = random.randint(10000, 99999)
+        codes.append(code)
 
         if access_mode == '1':
             personnel_id = code
@@ -109,34 +115,67 @@ def access_nsite():
         first_name += 1
 
     if access_mode == '1':
-        print("\nTo import new records, import into AccessNsite and load"
-            " the python_generate configuration.")
+        print("\n**To import new records, import into AccessNsite and load"
+            " the python_generate configuration**")
     elif access_mode == '2':
-        print("\nTo update records, import into AccessNsite and load"
-            " the python_update configuration.")
+        print("\n**To update records, import into AccessNsite and load"
+            " the python_update configuration**")
 
-def remote_link():
-    print("TODO Remote Link.\n")
+
+    # Remote Link
+    print("\n####Running Remote Link####\n")
+    print("Please enter the starting USER # for this run\n"
+            "***Make sure that there are enough open numbers in a row***\n")
+
+    while True:
+        try:
+            remote_user_start = int(input("What is the starting USER #?\n"))
+            break
+        except ValueError:
+            print("Numbers only, please.\n")
+
+    remote_last_name = input("What is the 'last name' you would like to use? (ex: week)\n")
+
+    while True:
+        try:
+            remote_first_name = int(input("What is the starting number for 'first name'?\n"))
+            break
+        except ValueError:
+            print("Numbers only, please.\n")
+
+    remote_profile = input("\nPlease enter the access level that you want added. "
+                            "(Can be left blank if unsure)\n"
+                            "**Keck Lab (ATL Room 2) + Lobby door is 17**\n")
+
+    # Make the TXT file for Remote Link
+    print("\n####Creating Remote Link txt file####\n")
+    for i in range(num_codes):
+        code = codes[i]
+
+        with open("remote_link_import.txt", 'a') as f:
+            f.write(f"{remote_user_start}      {remote_last_name} {remote_first_name}  {code}   {remote_profile}\n")
+
+        remote_first_name += 1
+        remote_user_start += 1
+
+    print("\nTo import new records, go into User Codes in Remote Link and "
+        " select Batch>File Name>Import.")
+
 
 
 if __name__ == '__main__':
     while True:
-        print('Would you like (1)Remote Link, (2)AccessNsite, or '
-              '(3)Exit? [1/2/3]')
+        print("#### Welcome ####\n")
+        print('Would you like (1)Create codes/files or (2)Exit '
+              '[1/2]')
         user_mode = input()
         if user_mode == '1':
-            print("Running Remote Link.\n")
-            remote_link()
-            print("\nFinished, quitting.")
-            exit()
-        elif user_mode == '2':
-            print("Running AccessNsite.\n")
+            print("\n####Running AccessNsite####\n")
             access_nsite()
             print("\nFinished, quitting.")
             exit()
-        elif user_mode == '3':
+        elif user_mode == '2':
             print('Exiting.\n')
             exit()
         else:
-            print('Please select either (1)Remote Link, (2)AccessNsite, or '
-                  '(3)Exit.\n')
+            print('Please select either (1)Remote Link or (2)Exit.\n')
